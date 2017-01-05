@@ -324,6 +324,15 @@ Point2i PathFinder::mm2pixl(Point2f p){
     return Point2i(x,y);
 }
 
+vector<Point2f> convertPis2Pfs(vector<Point2i> pi){
+    vector<Point2f> res;
+    for (int i = 0; i < pi.size(); i++) {
+        Point2f temp = Point2f(pi[i].x,pi[i].y);
+        res.push_back(temp);
+    }
+    return res;
+}
+
 void PathFinder::init(const cv::string& mapimgPath,float mindis,float pres,float Mapwidht,float Mapheight,bool BlackWall,float _robotRadius,float expandfac){
     this->offset = 5;
     this->robotRadius = _robotRadius;
@@ -380,7 +389,7 @@ void PathFinder::singlepathPlan(Point2f start, Point2f goal, vector<Point2f> &pa
         //===============
         //   DEBUG - End
         //===============
-        path = refinedpath;
+        path = convertPis2Pfs(refinedpath);
 
     }else{
         Mat temp;
